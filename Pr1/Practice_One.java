@@ -1,5 +1,3 @@
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Scanner;
 
 public class Practice_One {
@@ -8,59 +6,64 @@ public class Practice_One {
     static int num = 0;
 
     public static void main(String[] args) {
-        System.out.println("Какая задача вас интересует? Доступны: 17, 20, 23, 26, 29");
+        System.out.println("Какая задача вас интересует? Доступны: 2, 7, 12, 17, 27");
         try {
             int num2 = in.nextInt(), x, y;
             double z;
             switch (num2) {
-                case 17 -> {
-                    System.out.println(
-                            "17. На плоскости расположена окруж-ность радиуса R с центром в начале координат. Определить, лежат ли точки А(x1,y1) и B(x2,y2) на окружности");
-                    System.out.println("Введите радиус");
-                    num = in.nextInt();
-                    prin("x1", "y1");
-                    prin("x2", "y2");
-                }
-                case 20 -> {
-                    System.out.println("20. Вывести на печать переменные А,В,С в порядке их убывания");
-                    System.out.println("Введите А,В,С");
-                    int a = in.nextInt();
-                    int b = in.nextInt();
-                    int c = in.nextInt();
-                    Integer[] arr = { a, b, c };
-                    Arrays.sort(arr, Collections.reverseOrder());
-                    System.out.println(Arrays.toString(arr));
-                }
-                case 23 -> {
-                    System.out.println("Даны действительные числа x,y. Вычис-лить значение функции z=ln(x)-x/y");
-                    System.out.println("Введите x, y");
-                    x = in.nextInt();
-                    y = in.nextInt();
-                    System.out.println("z = ");
-                    z = Math.log10(x) - (double) x / y;
-                    System.out.print(z);
-                }
-                case 26 -> {
-                    System.out.println("Даны действительные числа x,y. Вычис-лить значение функции z=arcsin(x)-y");
-                    System.out.println("Введите x, y");
-                    x = in.nextInt();
-                    y = in.nextInt();
-                    System.out.println("z = ");
-                    System.out.print(Math.asin(x) - y);
-                }
-                case 29 -> {
-                    System.out.println("На каком из интервалов (-oo;k1),(k1;k2),(k2;+oo) лежит точка x? Где k1, k2,\n"
-                            + "x – вводимые произ-вольные числа, причем k1<k2");
-                    System.out.println("Введите x, k1, k2");
+                case 2 -> {
+                    System.out.println("2. Даны действительные числа x, y, z. Найти минимальное из них");
+                    System.out.println("Введите числа");
                     x = in.nextInt();
                     y = in.nextInt();
                     z = in.nextInt();
-                    if (x < y)
-                        System.out.println("Точка х принадлежит интервалу (-oo;k1)");
-                    if (x > y && x < z)
-                        System.out.println("Точка х принадлежит интервалу (k1;k2)");
-                    if (x > z)
-                        System.out.println("Точка х принадлежит интервалу (k2;+oo)");
+                    System.out.println("Минимальное число: " + Math.min(Math.min(x, y), z));
+                    
+                } 
+                case 7 -> {
+                    System.out.println("7. Даны действительные числа x,y. Вычислить значение функции z=log(x-y)-x/y");
+                    System.out.println("Введите числа");
+                    x = in.nextInt();
+                    y = in.nextInt();
+                    z = Math.log(x - y) - x / y;
+                    System.out.println("Значение функции: " + z);
+                }
+                case 12 -> {
+                    System.out.println("12. Даны действительные числа А, В. Если они оба отрицательные, то заменить каждое из них его квадратом, иначе положительные из них увеличить в два pаза");
+                    System.out.println("Введите числа");
+                    int a = in.nextInt();
+                    int b = in.nextInt();
+                    if (a < 0 && b < 0) {
+                        System.out.println("Квадрат чисел: " + a * a + " " + b * b);
+                    } else {
+                        System.out.println("Увеличение чисел в два раза: " + a * 2 + " " + b * 2);
+                    }
+        
+                }               
+                case 17 -> {
+                    System.out.println(
+                            "17. На плоскости расположена окружность радиуса R с центром в начале координат. Определить, лежат ли точки А (x1,y1) и B (x2,y2) на окружности");
+                    System.out.println("Введите радиус");
+                    int r = in.nextInt();
+                    System.out.println("Введите координаты точки А");
+                    int x1 = in.nextInt();
+                    int y1 = in.nextInt();
+                    System.out.println("Введите координаты точки B");
+                    int x2 = in.nextInt();
+                    int y2 = in.nextInt();
+                    if (Math.sqrt(x1 * x1 + y1 * y1) == r && Math.sqrt(x2 * x2 + y2 * y2) == r) {
+                        System.out.println("Точки лежат на окружности");
+                    } else {
+                        System.out.println("Точки не лежат на окружности");
+                    }
+                }
+                case 27 -> {
+                    System.out.println("27. Даны действительные числа x, y, z. Получить максимальное из них по модулю.");
+                    System.out.println("Введите числа");
+                    x = in.nextInt();
+                    y = in.nextInt();
+                    z = in.nextInt();
+                    System.out.println("Максимальное число по модулю: " + Math.max(Math.max(Math.abs(x), Math.abs(y)), Math.abs(z)));
                 }
                 default -> {
                     System.out.println("Производится выход из программы");
@@ -73,16 +76,4 @@ public class Practice_One {
         }
     }
 
-    private static void prin(String xs, String ys) {
-        System.out.println("Введите " + xs);
-        int x = in.nextInt();
-        System.out.println("Введите " + ys);
-        int y = in.nextInt();
-        double num1 = Math.sqrt(x * x + y * y);
-        if (num1 > num) {
-            System.out.println("Точка не принадлежит к кругу");
-        } else {
-            System.out.println("Точка принадлежит к кругу");
-        }
-    }
 }
