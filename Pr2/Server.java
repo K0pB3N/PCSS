@@ -90,9 +90,8 @@ class Connection extends Thread {
                     var p5 = new Point(points[8], points[9]);
                     var pentagon = new Pentagon(p1, p2, p3, p4, p5);
                     toClient.print("Площадь пятиугольника: " + pentagon.getArea() + "\n");
-
-        
-
+                    garbage = fromClient.readLine();
+                    
                     // toClient.print("Введите координату x1: \n");
                     // a = Double.parseDouble(fromClient.readLine());
                     // toClient.print("Введите координату y1: \n");
