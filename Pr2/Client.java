@@ -14,6 +14,7 @@ public class Client {
         BufferedReader in = null;
         try {
             clientSocket = new Socket("0.0.0.0", 1001);
+            
             /*
              * Создается выходной поток, чтобы посылать данные на
              * сервер
@@ -35,9 +36,11 @@ public class Client {
          * Создается входной поток, чтобы читать данные из окна консоли
          */
         BufferedReader stdin = new BufferedReader(new InputStreamReader((System.in)));
+
         /* Чтение из сокета */
 
         while (true) {
+    
             String inMessage = in.readLine();
             System.out.println(inMessage);
             String outMessage = stdin.readLine();
