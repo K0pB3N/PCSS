@@ -64,13 +64,15 @@ class Connection extends Thread {
         String message, garbage;
         double a, b;
         int n;
-        int[] array;
         try {
             while (true) {
                 toClient.print("Введите номер задания, которое хотите вывести на экран (доступны: 3, 6, 9, 27, 30): \n");
                 message = fromClient.readLine();
-                if (message.equals("9")) {
-                    toClient.print("9. Найти площадь пятиугольника, кооpдинаты веpшин котоpого заданы. Опpеделить пpоцедуpу вычисления pасстояния между двумя точками, заданными своими кооpдинатами, и пpоцедуpу вычисления площади тpеугольника по тpем стоpонам. Описать функции с соответствующими формальными параметрами. Введите координаты точек в формате: x1 y1 x2 y2 x3 y3 x4 y4 x5 y5\n");
+                if (message.equals("9")) { // 9. Найти площадь пятиугольника, кооpдинаты веpшин котоpого заданы.
+                                           // Опpеделить пpоцедуpу вычисления pасстояния между двумя точками, заданными
+                                           // своими кооpдинатами, и пpоцедуpу вычисления площади тpеугольника по тpем
+                                           // стоpонам. Описать функции с соответствующими формальными параметрами.
+                    toClient.print("Введите координаты точек в формате: x1 y1 x2 y2 x3 y3 x4 y4 x5 y5\n");
                 //     message = fromClient.readLine();
                 //     String[] arr = message.split(" ");
                 //     Point p1 = new Point(Double.parseDouble(arr[0]), Double.parseDouble(arr[1]));
@@ -89,7 +91,8 @@ class Connection extends Thread {
                     var p4 = new Point(points[6], points[7]);
                     var p5 = new Point(points[8], points[9]);
                     var pentagon = new Pentagon(p1, p2, p3, p4, p5);
-                    toClient.print("Площадь пятиугольника: " + pentagon.getArea() + " | Введите что-нибудь, чтобы продолжить...");
+                
+                    toClient.println("Площадь пятиугольника: " + pentagon.getArea() + " | Введите что-нибудь, чтобы продолжить...");
                     garbage = fromClient.readLine();
 
                     // toClient.print("Введите координату x1: \n");
@@ -119,8 +122,10 @@ class Connection extends Thread {
                     // Point p5 = new Point(a, b);
                     // toClient.print("Площадь пятиугольника: " + new Pentagon(p1, p2, p3, p4, p5).getArea() + "\n");
                 }
-                if (message.equals("27")) {
-                    toClient.print("27. Вычислить количество простых чисел, не превосходящих заданного N. Описать функцию логического типа, возвращающую значение true, если число простое и false в противном случае.\n");
+                if (message.equals("27")) { // 27. Вычислить количество простых чисел, не превосходящих заданного N.
+                                            // Описать функцию логического типа, возвращающую значение true, если число
+                                            // простое и false в противном случае.
+                    toClient.print("Введите число N: \n");
                     message = fromClient.readLine(); // считываем сообщение от клиента
                     n = Integer.parseInt(message); 
                     int count = 0;
@@ -129,31 +134,38 @@ class Connection extends Thread {
                             count++;
                         }
                     }
-                    toClient.print("Количество простых чисел: " + count + " | Введите что-нибудь, чтобы продолжить..."); 
+                    toClient.println("Количество простых чисел: " + count + " | Введите что-нибудь, чтобы продолжить..."); 
                     garbage = fromClient.readLine();
                 }
-                if (message.equals("30")) {
-                    toClient.print("30. Даны числа S, T. Получить с использованием функции пользователя G(12,S)+G(T, S)-G(2S-1, S*T) где G(A, B) = (2*A+B*B)/(A*B*2+B*5).\n");
-                    toClient.print("Введите числа S и T через Enter: \n");
+                if (message.equals("30")) { // 30. Даны числа S, T. Получить с использованием функции пользователя
+                                            // G(12,S)+G(T, S)-G(2S-1, S*T) где G(A, B) = (2*A+B*B)/(A*B*2+B*5).\n
+                    toClient.print("Введите число S: \n");
                     a = Double.parseDouble(fromClient.readLine());
+                    toClient.print("Введите число T: \n");
                     b = Double.parseDouble(fromClient.readLine());
-                    toClient.print("Результат: " + task30(a, b) + " | Введите что-нибудь, чтобы продолжить...");
+                    toClient.println("Результат: " + task30(a, b) + " | Введите что-нибудь, чтобы продолжить...");
                     garbage = fromClient.readLine();
                     
                 }
-                if (message.equals("3")) {
-                    toClient.print("Даны числа S, T. Получить с использованием функции пользователя F(T,-2S,1.17)+F(2.2,T,S-T) где F(A, B, C) = (2A-B-sin(C))/(5+C)\n");
+                if (message.equals("3")) { //3. Даны числа S, T. Получить с использованием функции пользователя
+                                           // F(T,-2S,1.17)+F(2.2,T,S-T) где F(A, B, C) = (2A-B-sin(C))/(5+C)\n
+                    toClient.print("Введите число S: \n");
                     a = Double.parseDouble(fromClient.readLine()); //считываем с консоли S
+                    toClient.print("Введите число T: \n");
                     b = Double.parseDouble(fromClient.readLine()); //считываем с консоли T
                     toClient.println("Результат: " + task3(a, b) + " | Введите что-нибудь, чтобы продолжить...");
                     garbage = fromClient.readLine();
                     
                 }
-                if (message.equals("6")) {
-                    toClient.println("6. Составить пpогpамму для pасчета значений гипотенузы тpеугольника, опpеделив функцию, выполняющую этот pасчет. Катеты передаются в качестве параметров");
+                if (message.equals("6")) {// 6. Составить пpогpамму для pасчета значений гипотенузы тpеугольника,
+                                          // опpеделив функцию, выполняющую этот pасчет. Катеты передаются в качестве
+                                          // параметров
+                    toClient.print("Введите длину катета a: \n");
                     a = Double.parseDouble(fromClient.readLine()); //катет 1
+                    toClient.print("Введите длину катета b: \n");
                     b = Double.parseDouble(fromClient.readLine()); //катет 2
                     toClient.println("Гипотенуза: " + task6(a, b) + " | Введите что-нибудь, чтобы продолжить...");
+                    garbage = fromClient.readLine();
                 }
                 if (message == null || message.equals("0")) {
                     System.out.println("Exit");
