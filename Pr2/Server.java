@@ -73,16 +73,6 @@ class Connection extends Thread {
                                            // своими кооpдинатами, и пpоцедуpу вычисления площади тpеугольника по тpем
                                            // стоpонам. Описать функции с соответствующими формальными параметрами.
                     toClient.print("Введите координаты точек в формате: x1 y1 x2 y2 x3 y3 x4 y4 x5 y5\n");
-                //     message = fromClient.readLine();
-                //     String[] arr = message.split(" ");
-                //     Point p1 = new Point(Double.parseDouble(arr[0]), Double.parseDouble(arr[1]));
-                //     Point p2 = new Point(Double.parseDouble(arr[2]), Double.parseDouble(arr[3]));
-                //     Point p3 = new Point(Double.parseDouble(arr[4]), Double.parseDouble(arr[5]));
-                //     Point p4 = new Point(Double.parseDouble(arr[6]), Double.parseDouble(arr[7]));
-                //     Point p5 = new Point(Double.parseDouble(arr[8]), Double.parseDouble(arr[9]));
-                //     Pentagon pentagon = new Pentagon(p1, p2, p3, p4, p5);
-                //     toClient.print("Площадь пятиугольника: " + pentagon.getArea() + "\n");
-                // }
                     var input = fromClient.readLine();
                     var points = Arrays.stream(input.split(" ")).mapToDouble(Double::parseDouble).toArray();
                     var p1 = new Point(points[0], points[1]);
