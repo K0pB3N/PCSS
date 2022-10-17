@@ -89,9 +89,9 @@ class Connection extends Thread {
                     var p4 = new Point(points[6], points[7]);
                     var p5 = new Point(points[8], points[9]);
                     var pentagon = new Pentagon(p1, p2, p3, p4, p5);
-                    toClient.print("Площадь пятиугольника: " + pentagon.getArea() + "\n");
+                    toClient.print("Площадь пятиугольника: " + pentagon.getArea() + " | Введите что-нибудь, чтобы продолжить...");
                     garbage = fromClient.readLine();
-                    
+
                     // toClient.print("Введите координату x1: \n");
                     // a = Double.parseDouble(fromClient.readLine());
                     // toClient.print("Введите координату y1: \n");
@@ -171,15 +171,15 @@ class Connection extends Thread {
 
     
 
-    private double task6(double a, double b) {
+    private double task6(double a, double b) { //расчет гипотенузы
         return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
     }
 
-    private double task30(double s, double t) {
+    private double task30(double s, double t) { //расчет функции
         return taskG(12, s) + taskG(t, s) - taskG(2 * s - 1, s * t);
     }
 
-    private double taskG(double a, double b) {
+    private double taskG(double a, double b) { 
         return ((2*a + b*b) / (a*b*2 + b*5));
     }
 
@@ -196,7 +196,7 @@ class Connection extends Thread {
         return taskF(b, -2 * a, 1.17) + taskF(2.2, b, a - b);
     }
 
-    private double taskF(double b, double d, double e) { 
+    private double taskF(double b, double d, double e) {  
         return (2 * b - d - Math.sin(e)) / (5 + e);
     }
 

@@ -40,7 +40,7 @@ public class Client {
         /* Чтение из сокета */
 
         while (true) {
-    
+            
             String inMessage = in.readLine();
             System.out.println(inMessage);
             String outMessage = stdin.readLine();
