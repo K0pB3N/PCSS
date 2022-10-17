@@ -1,0 +1,20 @@
+package Pr2;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Thread thr = new Thread() {
+            public void run() {
+                Server srv = new Server(3333);
+            }
+        };
+        thr.start();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Client clt = new Client(3333);
+
+    }
+}

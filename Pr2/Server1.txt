@@ -1,0 +1,164 @@
+package Pr2;
+import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Arrays;
+import java.util.Scanner;
+
+
+
+public class Server 
+{
+    private Socket socket = null;
+    private ServerSocket server = null;
+    private DataInputStream in = null;
+    private DataOutputStream out = null;
+
+    public Server(int port) {
+        try {
+            server = new ServerSocket(port);
+            socket = server.accept();
+            in = new DataInputStream(
+                    new BufferedInputStream(socket.getInputStream()));
+            out = new DataOutputStream(socket.getOutputStream());
+
+            String line = "-";
+
+            while (!line.equals("")) {
+                try {
+                    line = in.readUTF();
+                    String finalLine = line;
+                    var methods = Arrays.stream(Server.class.getMethods())
+                            .filter(x -> x.getName().equals("Impl" + finalLine));
+                    var methodsArr = methods.toArray();
+                    if (methodsArr.length > 0) {
+                        ((java.lang.reflect.Method) methodsArr[0]).invoke(this, null);
+                    } else {
+                        out.writeUTF("No method");
+                    }
+                } catch (IOException i) {
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            socket.close();
+            in.close();
+        } catch (IOException i) {
+            System.out.println(i);
+        }
+    }
+
+    public void Impl3() throws IOException {
+        out.writeUTF("Даны числа S, T. Получить с использованием функции пользователя F(T, -2S, 1.17) + F(2.2, T, S-T) где F(A, B, C) = (2A - B - sin(C))/(5+C)");
+        out.writeUTF("Введите S");
+        int S = in.readInt();
+        out.writeUTF("Введите T");
+        int T = in.readInt();
+        out.writeUTF("Результат: " + (2 * T - (-2 * S) - Math.sin(1.17)) / (5 + 1.17) + (2.2 * 2 - T - Math.sin(S - T)) / (5 + S - T));
+    }
+
+   
+
+    public void Impl6() throws IOException {
+        out.writeUTF("Составить пpогpамму для pасчета значений гипотенузы тpеугольника, опpеделив функцию, выполняющую этот pасчет. Катеты передаются в качестве параметров.");
+        out.writeUTF("Введите катет 1");
+        int katet1 = in.readInt();
+        out.writeUTF("Введите катет 2");
+        int katet2 = in.readInt();
+        out.writeUTF("Результат: " + Math.sqrt(Math.pow(katet1, 2) + Math.pow(katet2, 2)));
+    }
+
+
+    public void Impl9() throws IOException {
+        out.writeUTF("Найти площадь пятиугольника, кооpдинаты веpшин котоpого заданы. Опpеделить пpоцедуpу вычисления pасстояния между двумя точками, заданными своими кооpдинатами, и пpоцедуpу вычисления площади тpеугольника по тpем стоpонам. Описать функции с соответствующими формальными параметрами.");
+        out.writeUTF("Введите координаты вершин пятиугольника");
+        out.writeUTF("Введите координату x1");
+        int x1 = in.readInt();
+        out.writeUTF("Введите координату y1");
+        int y1 = in.readInt();
+        out.writeUTF("Введите координату x2");
+        int x2 = in.readInt();
+        out.writeUTF("Введите координату y2");
+        int y2 = in.readInt();
+        out.writeUTF("Введите координату x3");
+        int x3 = in.readInt();
+        out.writeUTF("Введите координату y3");
+        int y3 = in.readInt();
+        out.writeUTF("Введите координату x4");
+        int x4 = in.readInt();
+        out.writeUTF("Введите координату y4");
+        int y4 = in.readInt();
+        out.writeUTF("Введите координату x5");
+        int x5 = in.readInt();
+        out.writeUTF("Введите координату y5");
+        int y5 = in.readInt();
+        out.writeUTF("Результат: " + Impl9(x1, y1, x2, y2, x3, y3, x4, y4, x5, y5));
+    
+    }
+
+    private String Impl9(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int x5, int y5) {
+        double a = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+        double b = Math.sqrt(Math.pow(x3 - x2, 2) + Math.pow(y3 - y2, 2));
+        double c = Math.sqrt(Math.pow(x4 - x3, 2) + Math.pow(y4 - y3, 2));
+        double d = Math.sqrt(Math.pow(x5 - x4, 2) + Math.pow(y5 - y4, 2));
+        double e = Math.sqrt(Math.pow(x1 - x5, 2) + Math.pow(y1 - y5, 2));
+        double p = (a + b + c + d + e) / 2;
+        double s = Math.sqrt(p * (p - a) * (p - b) * (p - c) * (p - d) * (p - e));
+        return String.valueOf(s);
+    }
+
+    public void Impl27() throws IOException {
+        out.writeUTF("Вычислить количество простых чисел, не превосходящих заданного N. Описать функцию логического типа, возвращающую значение true, если число простое и false в противном случае.");
+        out.writeUTF("Введите число");
+        int n = in.readInt();
+        out.writeUTF("Результат: " + Impl27(n));
+        
+    }
+
+
+
+    private String Impl27(int n) {
+        int count = 0;
+        for (int i = 2; i <= n; i++) {
+            if (isPrime(i)) {
+                count++;
+            }
+        }
+        return String.valueOf(count);
+    }
+
+    private boolean isPrime(int i) {
+        for (int j = 2; j < i; j++) {
+            if (i % j == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void Impl30() throws IOException {
+        out.writeUTF("Даны числа S, T. Получить с использованием функции пользователя G(12, S)+G(T, S)-G(2S-1, S*T) где G(A, B) = (2*A+B*B)/(A*B*2+B*5).");
+        out.writeUTF("Введите S");
+        int S = in.readInt();
+        out.writeUTF("Введите T");
+        int T = in.readInt();
+        out.writeUTF("Результат: " + Impl30(S, T));
+
+    }
+
+    private String Impl30(int s, int t) {
+        return String.valueOf(Impl30G(12, s) + Impl30G(t, s) - Impl30G(2 * s - 1, s * t));
+    }
+    
+    private int Impl30G(int i, int s) {
+        return (2 * i + s * s) / (i * s * 2 + s * 5);
+    }
+
+    public static void main(String args[]) {
+        Server server = new Server(5000);
+    }
+}

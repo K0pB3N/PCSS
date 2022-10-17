@@ -1,0 +1,126 @@
+package Pr2;
+
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Client {
+    public static void main(String[] args) {
+        try {
+            PrintStream out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
+            Scanner scanner = new Scanner(System.in);
+
+            Socket clientSocket = new Socket("localhost", 8888);
+
+            Scanner is = new Scanner(clientSocket.getInputStream());
+            PrintWriter outS = new PrintWriter(clientSocket.getOutputStream(), true);
+
+            while (true) {
+                out.print("Введите номер задания для запуска (23, 26, 29, 2, 5) " +
+                        "или 0 для завершения работы программы: ");
+                int numberTask = scanner.nextInt();
+
+                if (numberTask == 0) {
+                    break;
+                }
+
+                outS.println(numberTask);
+
+                switch (numberTask) {
+                    case 3: {
+                        out.print("Введите число S:");
+                        out.print("Введите число T:");
+                        out.println(is.nextLine());
+                        break;
+                    }
+                    case 26: {
+                        int a, b;
+                        out.print("Введите размер массива:\n ");
+                        a = scanner.nextInt();
+                        outS.println(a);
+
+                        for (int i = 0; i < a; i++) {
+                            out.print((i + 1) + "(-ое/-ье) число в массиве: ");
+                            outS.println(scanner.nextInt());
+                        }
+
+                        out.print("Выберите сколько первых чисел массива будут суммированы:\n ");
+                        while (true) {
+                            b = scanner.nextInt();
+                            if (b > a) {
+                                out.print("Количество чисел не может превышать размер массива!\n ");
+                            } else {
+                                outS.println(b);
+                                break;
+                            }
+                        }
+
+                        out.println("Сумма первых " + b + " элементов = " + is.nextLine());
+                        break;
+                    }
+                    case 29: {
+                        out.print("Введите вес в граммах: \n");
+                        outS.println(scanner.next());
+
+                        out.println(is.nextLine());
+                        break;
+                    }
+                    case 2: {
+                        int a2, b2, c2;
+                        //////////////////////////////////////////////////////
+                        out.print("Введите размер первого массива:\n ");
+                        a2 = scanner.nextInt();
+                        outS.println(a2);
+
+                        for (int i = 0; i < a2; i++) {
+                            out.print((i + 1) + "(-ое/-ье) число в массиве: ");
+                            outS.println(scanner.nextInt());
+                        }
+                        //////////////////////////////////////////////////////
+                        out.print("Введите размер второго массива:\n ");
+                        b2 = scanner.nextInt();
+                        outS.println(b2);
+
+                        for (int i = 0; i < b2; i++) {
+                            out.print((i + 1) + "(-ое/-ье) число в массиве: ");
+                            outS.println(scanner.nextInt());
+                        }
+                        //////////////////////////////////////////////////////
+                        out.print("Введите размер третьего массива:\n ");
+                        c2 = scanner.nextInt();
+                        outS.println(c2);
+
+                        for (int i = 0; i < c2; i++) {
+                            out.print((i + 1) + "(-ое/-ье) число в массиве: ");
+                            outS.println(scanner.nextInt());
+                        }
+                        //////////////////////////////////////////////////////
+                        out.println(is.nextLine());
+                        break;
+                    }
+                    case 5: {
+                        out.print("Введите значение S: ");
+                        String S = scanner.next();
+                        outS.println(S);
+
+                        out.print("Введите значение T: ");
+                        String T = scanner.next();
+                        outS.println(T);
+
+                        out.println(is.nextLine());
+                        break;
+                    }
+                }
+            }
+
+            is.close();
+            outS.close();
+            clientSocket.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

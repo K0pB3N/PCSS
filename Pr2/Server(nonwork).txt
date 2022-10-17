@@ -1,0 +1,131 @@
+package Pr2;
+
+import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+public class Server {
+    private Socket socket = null;
+    private ServerSocket server = null;
+    private DataInputStream in = null;
+    private DataOutputStream out = null;
+
+    public Server(int port) {
+        try {
+            server = new ServerSocket(port);
+            socket = server.accept();
+            in = new DataInputStream(
+                    new BufferedInputStream(socket.getInputStream()));
+            out = new DataOutputStream(socket.getOutputStream());
+
+            String line = "-";
+
+            while (!line.equals("")) {
+                try {
+                    line = in.readUTF();
+                    String finalLine = line;
+                    var methods = Arrays.stream(Server.class.getMethods())
+                            .filter(x -> x.getName().equals("Impl" + finalLine));
+                    var methodsArr = methods.toArray();
+                    if (methodsArr.length > 0) {
+                        ((java.lang.reflect.Method) methodsArr[0]).invoke(this, null);
+                    } else {
+                        out.writeUTF("No method");
+                    }
+                } catch (IOException i) {
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            socket.close();
+            in.close();
+        } catch (IOException i) {
+            System.out.println(i);
+        }
+    }
+
+    public void Impl8() throws IOException {
+        out.writeUTF("Введите координаты вершин, разделённые пробелом");
+        String line = in.readUTF();
+        AtomicInteger i = new AtomicInteger();
+        var points = Arrays.stream(line.split(" ")).map(Double::valueOf).collect(Collectors.groupingBy(x -> (int) (i.getAndIncrement() / 2))).values().stream().toList();
+        double perimeter = 0;
+        for (int j = 0; j < points.stream().count(); j++) {
+            perimeter += Math.sqrt(Math
+                    .pow(points.get((j + 1) % (int) points.stream().count()).get(0) - points.get(j).get(0), 2)
+                    + Math.pow(points.get((j + 1) % (int) points.stream().count()).get(1) - points.get(j).get(1), 2));
+        }
+        out.writeUTF("Периметр: " + perimeter);
+    }
+
+    public void Impl11() throws IOException {
+        out.writeUTF("Введите 3 числа, разделённые пробелом");
+        String line = in.readUTF();
+        var numbers = Arrays.stream(line.split(" ")).map(Double::valueOf);
+        out.writeUTF("Максимальное: " + numbers.max(Double::compare).get());
+    }
+
+    public void Impl14() throws IOException {
+        out.writeUTF("Введите число A");
+        String line = in.readUTF();
+        double A = Double.valueOf(line);
+        Double[] solution = Impl14_SolveSquare(1, 4, -1);
+        if (solution.length == 0) {
+            out.writeUTF("Нет решений");
+        }
+        double X1 = solution[0];
+        solution = Impl14_SolveSquare(2, A, -Math.pow(A, 2));
+        if (solution.length == 0) {
+            out.writeUTF("Нет решений");
+        }
+        double Y1 = solution[0];
+        out.writeUTF("Z=" + ((X1 + Y1) / (X1 * Y1)));
+    }
+
+    private Double[] Impl14_SolveSquare(double a, double b, double c) {
+        Double D = b * b - 4 * a * c;
+        if (D > 0) {
+            double x1, x2;
+            x1 = (-b - Math.sqrt(D)) / (2 * a);
+            x2 = (-b + Math.sqrt(D)) / (2 * a);
+            return new Double[] { x1, x2 };
+        } else if (D == 0) {
+            double x;
+            x = -b / (2 * a);
+            return new Double[] { x };
+        } else {
+            return new Double[] {};
+        }
+    }
+
+    public void Impl17() throws IOException {
+        Impl8();
+    }
+
+    public void Impl20() throws IOException {
+        out.writeUTF("Введите число N");
+        String line = in.readUTF();
+        Integer N = Integer.valueOf(line);
+        var result = IntStream.rangeClosed(1, N).mapToDouble(x -> 3 * Impl20_Px(x + 3) * Impl20_Px(x)).boxed()
+                .collect(Collectors.toList());
+        for (int i = 0; i < result.stream().count(); i++)
+            out.writeUTF((i + 1) + ": " + result.get(i));
+    }
+
+    private double Impl20_Px(double X) {
+        return 10 * Math.pow(X, 3) - 14 * Math.pow(X, 2) + 12 * X;
+    }
+
+    public static void main(String args[]) {
+        Server server = new Server(5000);
+    }
+}

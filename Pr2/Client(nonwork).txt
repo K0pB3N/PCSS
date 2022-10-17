@@ -1,0 +1,42 @@
+package Pr2;
+
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Scanner;
+
+public class Client {
+    private Socket socket = null;
+    private DataInputStream in = null;
+    private DataOutputStream out = null;
+
+    public Client(int port) {
+        try {
+            socket = new Socket("localhost", port);
+            in = new DataInputStream(
+                    new BufferedInputStream(socket.getInputStream()));
+            out = new DataOutputStream(socket.getOutputStream());
+
+            Thread thr = new Thread() {
+                public void run() {
+                    while (true) {
+                        try {
+                            String line = in.readUTF();
+                            System.out.println(line);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            };
+            thr.start();
+
+            Scanner scanner = new Scanner(System.in);
+            while (true) {
+                out.writeUTF(scanner.nextLine());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
