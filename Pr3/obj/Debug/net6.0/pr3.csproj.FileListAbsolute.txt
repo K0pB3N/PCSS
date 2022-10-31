@@ -1,0 +1,5 @@
+Z:\STUDY\7 SEM\PCSS\pr3\obj\Debug\net6.0\pr3.csproj.AssemblyReference.cache
+Z:\STUDY\7 SEM\PCSS\pr3\obj\Debug\net6.0\pr3.GeneratedMSBuildEditorConfig.editorconfig
+Z:\STUDY\7 SEM\PCSS\pr3\obj\Debug\net6.0\pr3.AssemblyInfoInputs.cache
+Z:\STUDY\7 SEM\PCSS\pr3\obj\Debug\net6.0\pr3.AssemblyInfo.cs
+Z:\STUDY\7 SEM\PCSS\pr3\obj\Debug\net6.0\pr3.csproj.CoreCompileInputs.cache
